@@ -1,0 +1,17 @@
+{
+  "name": "receipeApp",
+  "description": "",
+  "main": "",
+  "authors": [
+    "derrickfox <fox.derrick@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "angular-ui-grid": "^3.1.1",
+    "angular-material": "^1.0.9"
+  },
+  "resolutions": {
+    "angular": "1.5.6"
+  }
+}
