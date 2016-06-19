@@ -1,9 +1,10 @@
-var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid'])
+var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.router'])
         .controller('receipeController', function(receipeService, $scope, $rootScope){
         $scope.receipes = receipeService.query();
-        $scope.newReceipe = {receipeName: '', receipeDescription: ''};
+        $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
         $scope.receipeName = '';
         $scope.receipeDescription = '';
+        $scope.receipePicture = 'images/';
         $scope.gridOptions;
         //$scope.returnedReceipe;
 
@@ -31,13 +32,15 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid'])
         $scope.postToMongo = function() {
             $scope.newReceipe.receipeName = $scope.receipeName;
             $scope.newReceipe.receipeDescription = $scope.receipeDescription;
+            $scope.newReceipe.receipePicture = $scope.receipePicture;
             receipeService.save($scope.newReceipe, function(){
                 $scope.receipes = receipeService.query();
-                $scope.newReceipe = {receipeName: '', receipeDescription: ''};
+                $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
             });
-            alert("Saved " + $scope.receipeName);
             $scope.receipeName = '';
             $scope.receipeDescription = '';
+            $scope.receipePicture = 'images/';
+            $scope.getAllReceipes();
         };
 
         $scope.getOneReceipe = function() {
@@ -94,10 +97,12 @@ app.factory('receipeService', function($resource){
     return $resource("/api/receipes/:id", {
         id: "@id",
         receipeName: "@receipeName",
-        receipeDescription: "@receipeDescription"
+        receipeDescription: "@receipeDescription",
+        receipePicture: "@receipePicture"
     });
 });
 
+/*
 app.config(function($routeProvider){
     $routeProvider
         //the timeline display
@@ -106,6 +111,30 @@ app.config(function($routeProvider){
             controller: 'receipeController'
         });
 });
+*/
+
+app.config(function($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.otherwise('/first');
+
+    $stateProvider
+
+        // HOME STATES AND NESTED VIEWS ========================================
+        .state('first', {
+            url: '/first',
+            templateUrl: 'main.html',
+            controller: 'receipeController'
+        })
+
+        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
+        .state('second', {
+            url: '/second',
+            templateUrl: 'second.html',
+            controller: 'receipeController'
+        });
+
+});
+
 
 app.directive('card', function(){
     return {

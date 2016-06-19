@@ -12,6 +12,7 @@ router.route('/receipes')
         var receipe = new Receipe();
         receipe.receipeName = req.body.receipeName;
         receipe.receipeDescription = req.body.receipeDescription;
+        receipe.receipePicture = req.body.receipePicture;
         receipe.save(function(err, receipe) {
             if (err){
                 return res.send(500, err);
@@ -49,6 +50,7 @@ router.route('/receipes/:id')
 
             receipe.receipeName = req.body.receipeName;
             receipe.receipeDescription = req.body.receipeDescription;
+            receipe.receipePicture = req.body.receipePicture;
 
             receipe.save(function(err, receipe){
                 if(err)

@@ -1,8 +1,16 @@
+<style>
+    img {
+        width: 200px;
+        height: 200px;
+    }
+</style>
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h4>{{rec.receipeName}}</h4>
     </div>
     <div class="panel-body">
         <h6>{{rec.receipeDescription}}</h6>
+        <h6>{{rec.receipePicture}}</h6>
+        <img src="{{rec.receipePicture}}">
     </div>
 </div>

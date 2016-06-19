@@ -1,12 +1,23 @@
-
-<div>
-    <div ui-grid="{ data: gridOptions }" class="grid"></div>
-</div>
+<a ui-sref="second">Second</a>
 <br>
-<input ng-model="search">
+<form ng-submit="postToMongo()">
+    <input ng-model="receipeName" placeholder="Receipe Name">
+    <br>
+    <input ng-model="receipeDescription" placeholder="Receipe Description">
+    <br>
+    <input ng-model="receipePicture">
+    <br>
+    <input type="submit">
+</form>
+
+<br>
+
+<input ng-model="search" placeholder="Search Receipes">
+<br><br>
 <div ng-repeat="rec in returnedReceipe | filter:search" class="col-md-3">
     <div card></div>
 </div>
+
 <!--
 <div ui-grid="{ data: {{returnedReceipe}} }" class="myGrid"></div>
 -->

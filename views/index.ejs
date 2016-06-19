@@ -28,20 +28,23 @@
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
-        <script src="javascripts/receipeApp.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+
+      <script src="javascripts/receipeApp.js"></script>
 
 
     <!-- Angular Material Library -->
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.js"></script>
       <style>
           .myGrid {
-              width: 800px;
+              width: 500px;
               height: 150px;
           }
       </style>
   </head>
   <body ng-app="receipeApp" style="padding-left: 20px; padding-top: 20px;">
-    <div ng-view>
+    <!-- DO NOT FORGET: NG-VIEW FOR NGROUTE. UI-VIEW FOR UIROUTE -->
+    <div ui-view>
     </div>
   </body>
 </html>
