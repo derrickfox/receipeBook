@@ -68,8 +68,17 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid'])
                 $scope.gridApi = gridApi;
             },
             columnDefs: [
-                // default
-                //{ field: 'name', headerCellClass: $scope.highlightFilteredHeader }
+                {
+                    field: 'receipeName',
+                    sort: {
+                        priority: 1
+                    }
+                },
+                {
+                    field: 'receipeDescription',
+                    sort: {
+                        priority: 0,
+                }}
             ]
         }];
 
@@ -98,6 +107,11 @@ app.config(function($routeProvider){
         });
 });
 
+app.directive('card', function(){
+    return {
+        templateUrl: 'receipeCard.html'
+    }
+});
 
 
 

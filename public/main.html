@@ -1,39 +1,11 @@
+
 <div>
-    <div style="display: inline-block; padding-left: 10px;">
-        <form ng-submit="postToMongo()">
-            <h3>Receipe Name</h3>
-            <input ng-model="receipeName" placeholder="Receipe Name"><br>
-            <h3>Receipe Description</h3>
-            <input ng-model="receipeDescription" placeholder="Receipe Description"><br><br>
-            <input type="submit">
-        </form>
-    </div>
-    <div style="display: inline-block; vertical-align: top; padding-left: 60px;">
-        <form ng-submit="getOneReceipe()">
-            <h3>Search Receipe Name </h3>
-            <input placeholder="Receipe Name" ng-model="receipeName"><input type="submit"><br>
-            <h3>Description: "{{returnedReceipe.receipeDescription}}"</h3>
-        </form>
-    </div>
-    <div style="display: inline-block; vertical-align: top; padding-left: 60px;">
-        <h3>Current Receipes</h3>
-        <p>Name - Description</p>
-        <p ng-repeat="receipe in returnedReceipe">{{receipe.receipeName}} - {{receipe.receipeDescription}} - {{receipe._id}}</p>
-    </div>
-    <div style="display: inline-block; vertical-align: top; padding-left: 60px;">
-        <h3>Delete a receipe:</h3>
-        <form ng-submit="deleteReceipe(receipe._id)">
-            <div class="checkbox" ng-repeat="receipe in returnedReceipe">
-                <label>
-                    <input type="checkbox" ng-click=""> {{ receipe.receipeName }}
-                </label>
-            </div>
-            <input type="submit">
-        </form>
-    </div>
+    <div ui-grid="{ data: gridOptions }" class="grid"></div>
 </div>
-<div>
-    <div ui-grid="{ data: myData }" class="grid"></div>
+<br>
+<input ng-model="search">
+<div ng-repeat="rec in returnedReceipe | filter:search" class="col-md-3">
+    <div card></div>
 </div>
 <!--
 <div ui-grid="{ data: {{returnedReceipe}} }" class="myGrid"></div>
