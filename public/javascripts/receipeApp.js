@@ -62,6 +62,7 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
         $scope.deleteReceipe = function(id) {
             receipeService.delete({_id: id});
             $scope.getAllReceipes();
+            alert("Triggered");
         }
 
         $scope.gridOptions = [{
@@ -130,6 +131,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('second', {
             url: '/second',
             templateUrl: 'second.html',
+            controller: 'receipeController'
+        })
+
+        .state('details', {
+            url: '/details',
+            templateUrl: 'receipeDetails.html',
             controller: 'receipeController'
         });
 
