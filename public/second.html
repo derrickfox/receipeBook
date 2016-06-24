@@ -2,7 +2,8 @@
 <body>
     <a ui-sref="first">First</a>
     <div>
-        <div ui-grid="{ data: gridOptions.data }" class="grid"></div>
+        <button id='toggleFiltering' ng-click="toggleFiltering()" class="btn btn-success">Toggle Filtering</button>
+        <div ui-grid="gridOptions" class="grid"></div>
     </div>
 </body>
 </html>

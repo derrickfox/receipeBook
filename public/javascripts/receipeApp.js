@@ -1,11 +1,10 @@
 var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.router'])
-        .controller('receipeController', function(receipeService, $scope, $rootScope){
+        .controller('receipeController', function($scope, $http, uiGridConstants, receipeService){
         $scope.receipes = receipeService.query();
         $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
         $scope.receipeName = '';
         $scope.receipeDescription = '';
         $scope.receipePicture = 'images/';
-        $scope.gridOptions;
         //$scope.returnedReceipe;
 
         $scope.myData = [
@@ -79,26 +78,24 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
             onRegisterApi: function(gridApi){
                 $scope.gridApi = gridApi;
             },
+
             columnDefs: [
                 {
                     field: 'receipeName',
-                    headerCellClass: $scope.highlightFilteredHeader,
-                    sort: {
-                        priority: 1
-                    }
+                    headerCellClass: $scope.highlightFilteredHeader
                 },
                 {
-                    field: 'receipeDescription',
-                    sort: {
-                        priority: 0,
-                    }
+                    field: 'receipeDescription'
                 }
             ]
         };
 
         $scope.toggleFiltering = function(){
+            alert('Working First');
             $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
-            $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
+            alert('Working Second');
+            //$scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
+            alert('Working Last');
         };
 
 });
