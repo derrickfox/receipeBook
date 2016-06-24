@@ -50,7 +50,7 @@ router.route('/receipes/:id')
 
             receipe.receipeName = req.body.receipeName;
             receipe.receipeDescription = req.body.receipeDescription;
-            receipe.receipePicture = req.body.receipePicture;
+            receipe.receipePicture = req.body.receipePicture;n
 
             receipe.save(function(err, receipe){
                 if(err)

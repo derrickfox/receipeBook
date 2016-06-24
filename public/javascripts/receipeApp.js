@@ -43,8 +43,8 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
             $scope.getAllReceipes();
         };
 
-        $scope.getOneReceipe = function() {
-            $scope.returnedReceipe = receipeService.get({id: '_id'});
+        $scope.getOneReceipe = function(id) {
+            $scope.returnedReceipe = receipeService.get({_id: id});
 
             console.log($scope.returnedReceipe);
 
@@ -63,9 +63,17 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
             receipeService.delete({_id: id});
             $scope.getAllReceipes();
             alert("Triggered");
-        }
+        };
 
-        $scope.gridOptions = [{
+        $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+            if( col.filters[0].term ){
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+
+        $scope.gridOptions = {
             enableFiltering: true,
             data: $scope.returnedReceipe,
             onRegisterApi: function(gridApi){
@@ -74,6 +82,7 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
             columnDefs: [
                 {
                     field: 'receipeName',
+                    headerCellClass: $scope.highlightFilteredHeader,
                     sort: {
                         priority: 1
                     }
@@ -82,9 +91,10 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
                     field: 'receipeDescription',
                     sort: {
                         priority: 0,
-                }}
+                    }
+                }
             ]
-        }];
+        };
 
         $scope.toggleFiltering = function(){
             $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
