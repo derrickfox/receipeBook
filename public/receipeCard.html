@@ -19,15 +19,18 @@
 </div>
 </a>
 -->
+<a ui-sref="details">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>{{rec.receipeName}}</h4>
+        </div>
+        <div class="panel-body">
+            <h6>{{rec.receipeDescription}}</h6>
+            <h6>{{rec.receipePicture}}</h6>
+            <img src="{{rec.receipePicture}}">
+        </div>
+        <button class="btn btn-danger" ng-click="deleteReceipe(rec._id)">Remove</button>
+    </div>
+</a>
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h4>{{rec.receipeName}}</h4>
-    </div>
-    <div class="panel-body">
-        <h6>{{rec.receipeDescription}}</h6>
-        <h6>{{rec.receipePicture}}</h6>
-        <img src="{{rec.receipePicture}}">
-    </div>
-    <button class="btn btn-danger" ng-click="deleteReceipe(rec._id)">Remove</button>
-</div>
+

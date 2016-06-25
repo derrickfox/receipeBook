@@ -1,32 +1,11 @@
 var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.router'])
-        .controller('receipeController', function($scope, $http, uiGridConstants, receipeService){
+        .controller('receipeController', function($scope, $http, uiGridConstants, receipeService, $rootScope){
         $scope.receipes = receipeService.query();
         $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
         $scope.receipeName = '';
         $scope.receipeDescription = '';
         $scope.receipePicture = 'images/';
-        //$scope.returnedReceipe;
-
-        $scope.myData = [
-            {
-                "firstName": "Cox",
-                "lastName": "Carney",
-                "company": "Enormo",
-                "employed": true
-            },
-            {
-                "firstName": "Lorraine",
-                "lastName": "Wise",
-                "company": "Comveyer",
-                "employed": false
-            },
-            {
-                "firstName": "Nancy",
-                "lastName": "Waters",
-                "company": "Fuelton",
-                "employed": false
-            }
-        ];
+        $scope.receipeID;
 
         $scope.postToMongo = function() {
             $scope.newReceipe.receipeName = $scope.receipeName;
@@ -43,15 +22,13 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
         };
 
         $scope.getOneReceipe = function(id) {
-            $scope.returnedReceipe = receipeService.get({_id: id});
-
-            console.log($scope.returnedReceipe);
-
+            $scope.singleReceipe = receipeService.get({_id: id});
+            console.log(singleReceipe);
         };
 
         $scope.getAllReceipes = function() {
             $scope.returnedReceipe = receipeService.query();
-            console.log($scope.returnedReceipe);
+            //console.log($scope.returnedReceipe);
             // $scope.gridOptions.data = $scope.returnedReceipe;
 
         };
@@ -59,9 +36,9 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
         $scope.getAllReceipes();
 
         $scope.deleteReceipe = function(id) {
-            receipeService.delete({_id: id});
+            receipeService.delete({id: id});
             $scope.getAllReceipes();
-            alert("Triggered");
+            alert(id);
         };
 
         $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {

@@ -7,15 +7,21 @@
     <br>
     <input ng-model="receipePicture">
     <br>
-    <input type="submit">
+    <input type="submit" value="Add Receipe">
 </form>
+<form ng-submit="getOneReceipe()">
+    <input ng-model="receipeID" placeholder="receipe ID (_ID)">
+    <input type="submit" value="Search for receipe">
+</form>
+<h2>{{singleReceipe.receipeName}} - {{singleReceipe.receipeDescription}}</h2>
 
 <br>
 
-<input ng-model="search" placeholder="Search Receipes">
+<input ng-model="search" placeholder="Filter Receipes">
 <br><br>
 <div ng-repeat="rec in returnedReceipe | filter:search" class="col-md-3">
-    <div card></div>
+    <!-- <div card></div> -->
+    <card></card>
 </div>
 
 <!--
