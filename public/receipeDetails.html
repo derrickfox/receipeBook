@@ -1,5 +1,18 @@
-<h1>Testing Details Page</h1>
+<style>
+    img {
+        width: 400px;
+        height: 400px;
+    }
+</style>
 
-<h1 align="center">{{receipe.receipeName}}</h1>
-<img src="{{receipe.receipePicture}}"><br>
-<h3 align="center">{{receipe.receipeDescription}}</h3>
+<a ui-sref="first">First</a>
+
+<h1>Selected Receipe: </h1>
+<h1>{{$root.singleReceipe.receipeName}}</h1>
+<h1>{{$root.singleReceipe.receipeDescription}}</h1>
+<form ng-submit="updateReceipe()">
+    <input ng-model="receipeName">
+    <input ng-model="receipeDescription">
+    <input type="submit" value="Update Receipe">
+</form>
+<img src="{{$root.singleReceipe.receipePicture}}">

@@ -6,6 +6,7 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
         $scope.receipeDescription = '';
         $scope.receipePicture = 'images/';
         $scope.receipeID;
+        $rootScope.singleReceipe;
 
         $scope.postToMongo = function() {
             $scope.newReceipe.receipeName = $scope.receipeName;
@@ -22,8 +23,12 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
         };
 
         $scope.getOneReceipe = function(id) {
-            $scope.singleReceipe = receipeService.get({_id: id});
-            console.log(singleReceipe);
+            $rootScope.singleReceipe = receipeService.get({id: id}, function(receipe) {
+                var thisReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
+                thisReceipe.receipeName = receipe.receipeName;
+                thisReceipe.receipeDescription = receipe.receipeDescription;
+                return thisReceipe;
+            });
         };
 
         $scope.getAllReceipes = function() {
@@ -33,7 +38,20 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
 
         };
 
+        // TODO here could be why the $scope is being cleared when the state changes/loads
         $scope.getAllReceipes();
+
+        $scope.updateReceipe = function() {
+            //alert($rootScope.singleReceipe._id);
+            $scope.entry = receipeService.get({ id: $rootScope.singleReceipe._id }, function() {
+                $scope.entry.receipeName = $scope.receipeName;
+                $scope.entry.receipeDescription = $scope.receipeDescription;
+                $scope.entry.$update(function() {
+                    alert("Fired");
+                    $state.transitionTo('first');
+                });
+            });
+        };
 
         $scope.deleteReceipe = function(id) {
             receipeService.delete({id: id});
@@ -75,15 +93,28 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
             alert('Working Last');
         };
 
+        /*
+        $scope.$watch(
+            "singleReceipe.receipeName",
+            function handleChange() {
+                alert("0 : " + $rootScope.singleReceipe.receipeName);
+            }
+        );
+        */
+
 });
 
 app.factory('receipeService', function($resource){
-    // return $resource('/api/receipes/:id');
     return $resource("/api/receipes/:id", {
-        id: "@id",
+        id: "@_id",
         receipeName: "@receipeName",
         receipeDescription: "@receipeDescription",
         receipePicture: "@receipePicture"
+    },
+    {
+        update: {
+            method: 'PUT'
+        }
     });
 });
 
@@ -120,6 +151,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         .state('details', {
             url: '/details',
+            templateUrl: 'receipeDetails.html',
+            controller: 'receipeController'
+        })
+
+        .state('details/:id', {
+            url: '/details/:id',
             templateUrl: 'receipeDetails.html',
             controller: 'receipeController'
         });
