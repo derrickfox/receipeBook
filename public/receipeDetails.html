@@ -11,8 +11,9 @@
 <h1>{{$root.singleReceipe.receipeName}}</h1>
 <h1>{{$root.singleReceipe.receipeDescription}}</h1>
 <form ng-submit="updateReceipe()">
-    <input ng-model="receipeName">
-    <input ng-model="receipeDescription">
+    <input ng-model="receipeName" value="Something"><br>
+    <input ng-model="receipeDescription"><br>
+    <input ng-model="receipePicture"><br>
     <input type="submit" value="Update Receipe">
 </form>
 <img src="{{$root.singleReceipe.receipePicture}}">

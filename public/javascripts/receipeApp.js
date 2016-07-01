@@ -1,5 +1,5 @@
 var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.router'])
-        .controller('receipeController', function($scope, $http, uiGridConstants, receipeService, $rootScope){
+        .controller('receipeController', function($scope, $state, $http, uiGridConstants, receipeService, $rootScope){
         $scope.receipes = receipeService.query();
         $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
         $scope.receipeName = '';
@@ -29,6 +29,7 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
                 thisReceipe.receipeDescription = receipe.receipeDescription;
                 return thisReceipe;
             });
+            $state.go('details');
         };
 
         $scope.getAllReceipes = function() {
@@ -47,16 +48,16 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
                 $scope.entry.receipeName = $scope.receipeName;
                 $scope.entry.receipeDescription = $scope.receipeDescription;
                 $scope.entry.$update(function() {
-                    alert("Fired");
-                    $state.transitionTo('first');
+                    $state.go('first');
                 });
+
             });
+
         };
 
         $scope.deleteReceipe = function(id) {
             receipeService.delete({id: id});
             $scope.getAllReceipes();
-            alert(id);
         };
 
         $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
@@ -104,6 +105,20 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
 
 });
 
+app.controller('testController', function($scope, $state, $http, uiGridConstants, receipeService, $rootScope) {
+    $scope.receipeName = 'FIRST PAGE: Test Receipe Name';
+    $scope.receipeDescription = 'SECOND PAGE: Test Description';
+
+    $scope.toSecondState = function() {
+        $state.go('test2');
+    };
+
+    $scope.toFirstState = function() {
+        $state.go('test1');
+    };
+
+});
+
 app.factory('receipeService', function($resource){
     return $resource("/api/receipes/:id", {
         id: "@_id",
@@ -117,17 +132,6 @@ app.factory('receipeService', function($resource){
         }
     });
 });
-
-/*
-app.config(function($routeProvider){
-    $routeProvider
-        //the timeline display
-        .when('/', {
-            templateUrl: 'main.html',
-            controller: 'receipeController'
-        });
-});
-*/
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -159,6 +163,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/details/:id',
             templateUrl: 'receipeDetails.html',
             controller: 'receipeController'
+        })
+
+        .state('test1', {
+            url: '/test1',
+            templateUrl: 'test1.html',
+            controller: 'testController'
+        })
+
+        .state('test2', {
+            url: '/test2',
+            templateUrl: 'test2.html',
+            controller: 'testController'
         });
 
 });
