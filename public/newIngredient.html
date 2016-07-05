@@ -1,0 +1,21 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch flex="40">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Add a new ingredient</span>
+            <span class="md-subhead"><input ng-model="newIngredient" placeholder="Type new ingredient"></span>
+        </md-card-title-text>
+        <md-card-title-media>
+            <div class="md-media-lg card-media"></div>
+        </md-card-title-media>
+    </md-card-title>
+</md-card>
+
+<md-card flex="40">
+    <div ng-repeat="ingredient in $scope.receipeIngredients">
+        <h1>{{ingredient}}</h1>
+    </div>
+</md-card>
+<button ui-sref="new" class="btn btn-success">Add Recipe</button><br><br>
+<button class="btn btn-danger" ng-click="printThis()">Print Ingredient List</button><br><br>
+
+

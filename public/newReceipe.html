@@ -1,0 +1,78 @@
+<style>
+    .checkboxdemoSyncing .checkboxDemo1 div {
+        clear: both; }
+
+    .checkboxdemoSyncing legend {
+        color: #3F51B5; }
+
+    .checkboxdemoSyncing legend code {
+        color: #3F51B5;
+        font-weight: normal; }
+
+    .checkboxdemoSyncing p {
+        padding-left: 8px; }
+
+    .checkboxdemoSyncing .info {
+        padding-left: 13px; }
+
+    .checkboxdemoSyncing div.standard {
+        padding: 8px;
+        padding-left: 15px; }
+
+    .checkboxdemoSyncing fieldset.standard {
+        border-style: solid;
+        border-width: 1px;
+        height: 100%; }
+
+</style>
+<md-card flex="40">
+    <h1>Enter in a new receipe!</h1>
+    <form ng-submit="postToMongo()">
+        <h3>Receip Name:</h3>
+        <input ng-model="receipeName"><br><br>
+        <md-radio-group ng-model="receipeType">
+            <md-radio-button value="App">App</md-radio-button>
+            <md-radio-button value="Entree">Entree</md-radio-button>
+            <md-radio-button value="Dessert">Dessert</md-radio-button>
+            <md-radio-button value="Side">Side</md-radio-button>
+        </md-radio-group>
+        <h3>Receipe Description:</h3>
+        <input ng-model="receipeDescription"><br>
+        <h3>Receipe Picture</h3>
+        <input ng-model="receipePicture"><br><br>
+        <input type="submit" value="Add Receipe"><br><br>
+
+        <div>
+
+            <div layout="row" layout-wrap="">
+
+                <div flex="100" flex-gt-sm="50" layout="column">
+                    <div>
+                        <fieldset class="standard">
+                            <legend>Ingredients</legend>
+                            <div layout="row" layout-wrap="" flex="">
+                                <div flex="50" ng-repeat="item in ingredients">
+                                    <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected, $root.receipeIngredients)">
+                                        {{ item }}
+                                    </md-checkbox>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div flex="100">
+                    <h2 class="md-title">Selected Items</h2>
+                    <code style="display: block; padding: 8px;">{{selected | json}}</code>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+</md-card>
+
+
+<button ui-sref="newIng" class="btn btn-success">Add Ingredient</button><br><br>
+<button class="btn btn-danger" ng-click="printThis()">Print Ingredient List</button><br><br>

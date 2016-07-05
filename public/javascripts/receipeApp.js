@@ -1,12 +1,51 @@
-var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.router'])
+var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessages', 'ui.grid', 'ui.router'])
         .controller('receipeController', function($scope, $state, $http, uiGridConstants, receipeService, $rootScope){
         $scope.receipes = receipeService.query();
         $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
+        $scope.newIngredient = '';
         $scope.receipeName = '';
         $scope.receipeDescription = '';
         $scope.receipePicture = 'images/';
+        $scope.receipeSteps = [];
+        $scope.receipeType = ['App', 'Entree', 'Side', 'Dessert'];
+        $scope.receipeIngredients = [];
         $scope.receipeID;
         $rootScope.singleReceipe;
+
+        $scope.ingredients = ["Apple","Onions","Carrots","Mushrooms","Grapes"];
+        $scope.selected = [];
+
+        $scope.printThis = function(){
+            alert($scope.receipeIngredients);
+        };
+
+        $scope.toggle = function (item, list) {
+            var idx = list.indexOf(item);
+            var myIdx = $scope.receipeIngredients.indexOf(item);
+
+            if (myIdx > -1) {
+                $scope.receipeIngredients.splice(myIdx, 1);
+            }
+            else {
+                $scope.receipeIngredients.push(item);
+            }
+
+            if (idx > -1) {
+                list.splice(idx, 1);
+            }
+            else {
+                list.push(item);
+                //myList.push(item);
+            }
+            console.log("Internal list: " + myList);
+            console.log($scope.receipeIngredients);
+            alert($scope.receipeIngredients);
+
+        };
+
+        $scope.exists = function (item, list) {
+            return list.indexOf(item) > -1;
+        };
 
         $scope.postToMongo = function() {
             $scope.newReceipe.receipeName = $scope.receipeName;
@@ -85,39 +124,35 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ui.grid', 'ui.
                 }
             ]
         };
+});
 
-        $scope.toggleFiltering = function(){
-            alert('Working First');
-            $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
-            alert('Working Second');
-            //$scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
-            alert('Working Last');
+
+
+app.controller('testController', function($scope) {
+
+        $scope.items = ["Apple","Onions","Carrots","Mushrooms","Grapes"];
+        $scope.selected = [];
+
+        $scope.toggle = function (item, list) {
+            var idx = list.indexOf(item);
+            if (idx > -1) {
+                list.splice(idx, 1);
+            }
+            else {
+                list.push(item);
+            }
         };
 
-        /*
-        $scope.$watch(
-            "singleReceipe.receipeName",
-            function handleChange() {
-                alert("0 : " + $rootScope.singleReceipe.receipeName);
-            }
-        );
-        */
+        $scope.exists = function (item, list) {
+            return list.indexOf(item) > -1;
+        };
+    });
 
-});
 
-app.controller('testController', function($scope, $state, $http, uiGridConstants, receipeService, $rootScope) {
-    $scope.receipeName = 'FIRST PAGE: Test Receipe Name';
-    $scope.receipeDescription = 'SECOND PAGE: Test Description';
-
-    $scope.toSecondState = function() {
-        $state.go('test2');
-    };
-
-    $scope.toFirstState = function() {
-        $state.go('test1');
-    };
-
-});
+/**
+ Copyright 2016 Google Inc. All Rights Reserved.
+ Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+ **/
 
 app.factory('receipeService', function($resource){
     return $resource("/api/receipes/:id", {
@@ -175,6 +210,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/test2',
             templateUrl: 'test2.html',
             controller: 'testController'
+        })
+
+        .state('newIng', {
+            url: '/newIng',
+            templateUrl: 'newIngredient.html',
+            controller: 'receipeController'
+        })
+
+        .state('new', {
+            url: '/new',
+            templateUrl: 'newReceipe.html',
+            controller: 'receipeController'
         });
 
 });
