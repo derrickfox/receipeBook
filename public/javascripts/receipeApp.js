@@ -1,7 +1,7 @@
 var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessages', 'ui.grid', 'ui.router'])
         .controller('receipeController', function($scope, $state, $http, uiGridConstants, receipeService, $rootScope){
         $scope.receipes = receipeService.query();
-        $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
+        $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: '', receipeIngredients: []};
         $scope.newIngredient = '';
         $scope.receipeName = '';
         $scope.receipeDescription = '';
@@ -37,10 +37,22 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
                 list.push(item);
                 //myList.push(item);
             }
-            console.log("Internal list: " + myList);
-            console.log($scope.receipeIngredients);
-            alert($scope.receipeIngredients);
+            console.clear();
+            console.log("Internal list: " + list);
+            console.log("Scope list: " + $scope.receipeIngredients);
 
+        };
+
+        $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
+
+        $scope.addNewChoice = function() {
+            var newItemNo = $scope.choices.length+1;
+            $scope.choices.push({'id':'choice'+newItemNo});
+        };
+
+        $scope.removeChoice = function() {
+            var lastItem = $scope.choices.length-1;
+            $scope.choices.splice(lastItem);
         };
 
         $scope.exists = function (item, list) {
@@ -51,21 +63,26 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
             $scope.newReceipe.receipeName = $scope.receipeName;
             $scope.newReceipe.receipeDescription = $scope.receipeDescription;
             $scope.newReceipe.receipePicture = $scope.receipePicture;
+            $scope.newReceipe.receipeIngredients = $scope.receipeIngredients;
             receipeService.save($scope.newReceipe, function(){
                 $scope.receipes = receipeService.query();
-                $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
+                $scope.newReceipe = {receipeName: '', receipeDescription: '', receipePicture: '', receipeIngredients: []};
             });
             $scope.receipeName = '';
             $scope.receipeDescription = '';
             $scope.receipePicture = 'images/';
+            $scope.receipeIngredients = [];
             $scope.getAllReceipes();
+            $state.go('first');
         };
 
         $scope.getOneReceipe = function(id) {
             $rootScope.singleReceipe = receipeService.get({id: id}, function(receipe) {
-                var thisReceipe = {receipeName: '', receipeDescription: '', receipePicture: ''};
+                var thisReceipe = {receipeName: '', receipeDescription: '', receipePicture: '', receipeIngredients: []};
                 thisReceipe.receipeName = receipe.receipeName;
                 thisReceipe.receipeDescription = receipe.receipeDescription;
+                thisReceipe.receipePicture = receipe.receipePicture;
+                thisReceipe.receipeIngredients = receipe.receipeIngredients;
                 return thisReceipe;
             });
             $state.go('details');
@@ -86,6 +103,8 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
             $scope.entry = receipeService.get({ id: $rootScope.singleReceipe._id }, function() {
                 $scope.entry.receipeName = $scope.receipeName;
                 $scope.entry.receipeDescription = $scope.receipeDescription;
+                $scope.entry.receipeIngredients = $scope.receipeIngredients;
+                // TODO add a way to update picture URL.
                 $scope.entry.$update(function() {
                     $state.go('first');
                 });
@@ -159,7 +178,8 @@ app.factory('receipeService', function($resource){
         id: "@_id",
         receipeName: "@receipeName",
         receipeDescription: "@receipeDescription",
-        receipePicture: "@receipePicture"
+        receipePicture: "@receipePicture",
+        receipeIngredients: "@receipeIngredients"
     },
     {
         update: {

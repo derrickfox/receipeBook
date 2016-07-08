@@ -5,6 +5,28 @@ var Receipe = mongoose.model('Receipe');
 
 //router.use('/receipes');
 
+router.route('/ingredients/:ingredients')
+    //gets receipes with ingredients that appear in the array
+    .get(function(req, res){
+        console.log('Getting ingredients...');
+        //Receipe.find(function(err, receipes){
+        //    console.log('debug2');
+        //    if(err){
+        //        return res.send(500, err);
+        //    }
+        //    return res.send(200,receipes);
+        //});
+
+        Receipe.find( {
+            receipeIngredients: { $all: ["Apple", "Grapes"] }
+        }, function(err, list){
+                if(err){
+                    return res.send(500, err);
+                }
+            return res.send(200, list);
+        });
+    });
+
 router.route('/receipes')
     //creates a new receipe
     .post(function(req, res){
@@ -13,6 +35,7 @@ router.route('/receipes')
         receipe.receipeName = req.body.receipeName;
         receipe.receipeDescription = req.body.receipeDescription;
         receipe.receipePicture = req.body.receipePicture;
+        receipe.receipeIngredients = req.body.receipeIngredients;
         receipe.save(function(err, receipe) {
             if (err){
                 return res.send(500, err);
@@ -51,6 +74,7 @@ router.route('/receipes/:id')
             receipe.receipeName = req.body.receipeName;
             receipe.receipeDescription = req.body.receipeDescription;
             receipe.receipePicture = req.body.receipePicture;
+            receipe.receipeIngredients = req.body.receipeIngredients;
 
             receipe.save(function(err, receipe){
                 if(err)

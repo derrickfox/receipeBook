@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var receipeSchema = new mongoose.Schema({
     receipeName: String,		//should be changed to ObjectId, ref "User"
     receipeDescription: String,
-    receipePicture: String
+    receipePicture: String,
+    receipeIngredients: Array
 });
 
 

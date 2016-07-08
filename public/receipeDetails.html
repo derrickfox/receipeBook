@@ -14,6 +14,14 @@
     <input ng-model="receipeName" value="Something"><br>
     <input ng-model="receipeDescription"><br>
     <input ng-model="receipePicture"><br>
+    <div ng-repeat="ing in $root.singleReceipe.receipeIngredients">
+        <h4>{{ing}}</h4>
+    </div>
     <input type="submit" value="Update Receipe">
-</form>
+</form><br>
+<div id="choicesDisplay" ng-repeat="choice in choices">
+    <h2>{{choice.id}}</h2><button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
+</div>
+<button class="addfields" ng-click="addNewChoice()">Add fields</button>
+
 <img src="{{$root.singleReceipe.receipePicture}}">

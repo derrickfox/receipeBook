@@ -52,7 +52,7 @@
                             <legend>Ingredients</legend>
                             <div layout="row" layout-wrap="" flex="">
                                 <div flex="50" ng-repeat="item in ingredients">
-                                    <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected, $root.receipeIngredients)">
+                                    <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
                                         {{ item }}
                                     </md-checkbox>
                                 </div>
