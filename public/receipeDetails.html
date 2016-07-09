@@ -1,17 +1,44 @@
 <style>
     img {
-        width: 400px;
-        height: 400px;
+        width: 5px;
+        height: 5px;
     }
 </style>
-<md-button ui-sref="first" class="btn btn-info">Home</md-button>
-
+<div layout="row">
+    <md-card flex="50">
+        <h1 class="md-display-2">Image</h1>
+        <img src="{{$root.singleReceipe.receipePicture}}">
+    </md-card>
+    <md-card flex="50">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Receipe Name </label>
+            <input md-select-on-focus ng-model="$root.singleReceipe.receipeName"></input><br><br><br>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Receipe Description </label>
+            <input md-select-on-focus ng-model="$root.singleReceipe.receipeDescription"></input><br><br><br>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Receipe Name </label>
+            <input md-select-on-focus ng-model="receipeName"></input><br><br><br>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Receipe Description </label>
+            <input md-select-on-focus ng-model="receipeDescription"></input><br><br><br>
+        </md-input-container>
+        <div ng-repeat="item in ingredients | orderBy">
+            <md-checkbox ng-checked="exists(item, $root.singleReceipe.receipeIngredients)" ng-click="toggle(item, $root.singleReceipe.receipeIngredients)">
+                {{ item }}
+            </md-checkbox>
+        </div>
+    </md-card>
+</div>
 <h1>Selected Receipe: </h1>
 <h1>{{$root.singleReceipe.receipeName}}</h1>
 <h1>{{$root.singleReceipe.receipeDescription}}</h1>
 <form ng-submit="updateReceipe()">
-    <input ng-model="receipeName" value="Something"><br>
-    <input ng-model="receipeDescription"><br>
+    <input ng-model="receipeName" value="Something" placeholder="Receipe Name"><br>
+    <input ng-model="receipeDescription" placeholder="Receipe Description"><br>
     <input ng-model="receipePicture"><br>
     <div ng-repeat="ing in $root.singleReceipe.receipeIngredients">
         <h4>{{ing}}</h4>
@@ -21,6 +48,5 @@
 
 <button class="addfields" ng-click="addNewChoice()">Add fields</button>
 
-<img src="{{$root.singleReceipe.receipePicture}}">
 <button class="btn btn-danger" ng-click="deleteReceipe($root.singleReceipe._id)">Remove</button>
 

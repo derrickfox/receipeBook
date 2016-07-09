@@ -14,6 +14,8 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
 
         $scope.ingredients = ["Apple","Onions","Carrots","Mushrooms","Grapes"];
         $scope.ingredient = '';
+        $scope.instructions = ['step 1', 'step 2'];
+        $scope.instruction = '';
         $scope.selected = [];
 
         $scope.printThis = function(){
@@ -51,9 +53,16 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
         //    $scope.choices.push({'id':'choice'+newItemNo});
         //};
 
-        $scope.addNewChoice = function(){
+        $scope.addNewIngredient = function(){
             var newIngredient = $scope.ingredient;
             $scope.ingredients.push(newIngredient);
+            $scope.ingredient = '';
+        };
+
+        $scope.addNewInstruction = function(){
+            var newInstruction = $scope.instruction;
+            $scope.instructions.push(newInstruction);
+            $scope.instruction = '';
         };
 
         $scope.removeChoice = function() {
