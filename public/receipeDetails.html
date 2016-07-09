@@ -4,8 +4,7 @@
         height: 400px;
     }
 </style>
-
-<a ui-sref="first">First</a>
+<md-button ui-sref="first" class="btn btn-info">Home</md-button>
 
 <h1>Selected Receipe: </h1>
 <h1>{{$root.singleReceipe.receipeName}}</h1>
@@ -19,9 +18,9 @@
     </div>
     <input type="submit" value="Update Receipe">
 </form><br>
-<div id="choicesDisplay" ng-repeat="choice in choices">
-    <h2>{{choice.id}}</h2><button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
-</div>
+
 <button class="addfields" ng-click="addNewChoice()">Add fields</button>
 
 <img src="{{$root.singleReceipe.receipePicture}}">
+<button class="btn btn-danger" ng-click="deleteReceipe($root.singleReceipe._id)">Remove</button>
+

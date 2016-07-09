@@ -5,7 +5,8 @@
     }
 </style>
 
-<div ng-class="{tossing: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+<!-- tossing: hover -->
+<div ng-class="{lesstossing: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
     <a ng-click="getOneReceipe(rec._id)">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -16,7 +17,6 @@
                 <h6>{{rec.receipePicture}}</h6>
                 <img src="{{rec.receipePicture}}">
             </div>
-            <button class="btn btn-danger" ng-click="deleteReceipe(rec._id)">Remove</button>
         </div>
     </a>
 </div>

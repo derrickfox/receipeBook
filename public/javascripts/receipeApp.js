@@ -13,6 +13,7 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
         $rootScope.singleReceipe;
 
         $scope.ingredients = ["Apple","Onions","Carrots","Mushrooms","Grapes"];
+        $scope.ingredient = '';
         $scope.selected = [];
 
         $scope.printThis = function(){
@@ -45,9 +46,14 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
 
         $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
 
-        $scope.addNewChoice = function() {
-            var newItemNo = $scope.choices.length+1;
-            $scope.choices.push({'id':'choice'+newItemNo});
+        //$scope.addNewChoice = function() {
+        //    var newItemNo = $scope.choices.length+1;
+        //    $scope.choices.push({'id':'choice'+newItemNo});
+        //};
+
+        $scope.addNewChoice = function(){
+            var newIngredient = $scope.ingredient;
+            $scope.ingredients.push(newIngredient);
         };
 
         $scope.removeChoice = function() {
@@ -116,6 +122,7 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
         $scope.deleteReceipe = function(id) {
             receipeService.delete({id: id});
             $scope.getAllReceipes();
+            $state.go('first');
         };
 
         $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {

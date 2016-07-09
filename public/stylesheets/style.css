@@ -31,9 +31,44 @@ a {
   opacity: 1.0 !important;
 }
 
-#liftUpCard {
+.liftUpCard {
   -webkit-margin-before: 0.83em;
   -webkit-margin-after: 0.83em;
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
+}
+
+.lesstossing{
+  animation-name: lesstossing;
+  -webkit-animation-name: lesstossing;
+
+  animation-duration: 2.5s;
+  -webkit-animation-duration: 2.5s;
+
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes lesstossing {
+  0% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(-1deg);
+  }
+}
+
+@-webkit-keyframes lesstossing {
+  0% {
+    -webkit-transform: rotate(-1deg);
+  }
+  50% {
+    -webkit-transform: rotate(1deg);
+  }
+  100% {
+    -webkit-transform: rotate(-1deg);
+  }
 }

@@ -25,27 +25,31 @@
         height: 100%; }
 
 </style>
+<md-button ui-sref="first" class="btn btn-info">Home</md-button>
+
 <md-card flex="40">
-    <h1>Enter in a new receipe!</h1>
+    <h1 class="md-display-2">Enter in a new receipe!</h1>
     <form ng-submit="postToMongo()">
-        <h3>Receip Name:</h3>
-        <input ng-model="receipeName"><br><br>
-        <md-radio-group ng-model="receipeType">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Receipe Name</label>
+            <input ng-model="receipeName">
+        </md-input-container>
+        <md-radio-group ng-model="receipeType" layout="row">
             <md-radio-button value="App">App</md-radio-button>
             <md-radio-button value="Entree">Entree</md-radio-button>
             <md-radio-button value="Dessert">Dessert</md-radio-button>
             <md-radio-button value="Side">Side</md-radio-button>
         </md-radio-group>
-        <h3>Receipe Description:</h3>
-        <input ng-model="receipeDescription"><br>
+        <md-input-container class="md-block">
+            <label>Receipe Description</label>
+            <textarea ng-model="receipeDescription" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
         <h3>Receipe Picture</h3>
         <input ng-model="receipePicture"><br><br>
         <input type="submit" value="Add Receipe"><br><br>
 
         <div>
-
             <div layout="row" layout-wrap="">
-
                 <div flex="100" flex-gt-sm="50" layout="column">
                     <div>
                         <fieldset class="standard">
@@ -60,19 +64,20 @@
                         </fieldset>
                     </div>
                 </div>
-
                 <div flex="100">
                     <h2 class="md-title">Selected Items</h2>
                     <code style="display: block; padding: 8px;">{{selected | json}}</code>
                 </div>
-
             </div>
-
         </div>
-
     </form>
 </md-card>
-
+<md-card>
+    <input ng-model="ingredient"><button class="btn btn-warn" ng-click="addNewChoice()">Add New Ingredient</button>
+    <div id="choicesDisplay" ng-repeat="ingredient in ingredients">
+        <h2>{{ingredient}}</h2><button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
+    </div>
+</md-card>
 
 <button ui-sref="newIng" class="btn btn-success">Add Ingredient</button><br><br>
 <button class="btn btn-danger" ng-click="printThis()">Print Ingredient List</button><br><br>
