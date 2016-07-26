@@ -1,16 +1,28 @@
 <style>
-    img {
-        width: 5px;
-        height: 5px;
+    #myPic {
+        width: 500px !important;
+        height: 500px !important;
+    }
+
+    .md-block {
+        margin: 20px 20px 20px 20px;
+    }
+
+    .myCheckBox {
+        margin: 20px 20px 20px 20px;
+    }
+
+    .myCheckBox2 {
+        margin-left: 20px;
     }
 </style>
 <div layout="row">
     <md-card flex="50">
-        <h1 class="md-display-2">Image</h1>
-        <img src="{{$root.singleReceipe.receipePicture}}">
+        <h1 class="md-display-2" align="center">{{$root.singleReceipe.receipeName}}</h1>
+        <div align="center"><img src="{{$root.singleReceipe.receipePicture}}" id="myPic"></div>
     </md-card>
-    <md-card flex="50">
-        <md-input-container class="md-block" flex-gt-sm>
+    <md-card flex="50" style="">
+        <md-input-container class="md-block" flex-gt-sm style="margin-top: 40px;">
             <label>Receipe Name </label>
             <input md-select-on-focus ng-model="$root.singleReceipe.receipeName"></input><br><br><br>
         </md-input-container>
@@ -22,14 +34,12 @@
             <label>Receipe Name </label>
             <input md-select-on-focus ng-model="receipeName"></input><br><br><br>
         </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
-            <label>Receipe Description </label>
-            <input md-select-on-focus ng-model="receipeDescription"></input><br><br><br>
-        </md-input-container>
-        <div ng-repeat="item in ingredients | orderBy">
-            <md-checkbox ng-checked="exists(item, $root.singleReceipe.receipeIngredients)" ng-click="toggle(item, $root.singleReceipe.receipeIngredients)">
-                {{ item }}
-            </md-checkbox>
+        <div class="myCheckBox">
+            <div ng-repeat="item in ingredients | orderBy">
+                <md-checkbox ng-checked="exists(item, $root.singleReceipe.receipeIngredients)" ng-click="toggle(item, $root.singleReceipe.receipeIngredients)">
+                    {{ item }}
+                </md-checkbox>
+            </div>
         </div>
     </md-card>
 </div>

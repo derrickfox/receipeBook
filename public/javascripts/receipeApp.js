@@ -18,11 +18,41 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
         $scope.instruction = '';
         $scope.selected = [];
 
+        // For testing: Begin Block
+        $scope.singleInst = "C";
+        $scope.singleInst2 = "F";
+        $scope.singleInst3 = "R";
+
+        $scope.recArray = ['A', 'C', 'F'];
+        $scope.selectedArray = [];
+        $scope.resultsArray = [];
+
+        $scope.findInArray = function(inst, list) {
+            for(var l = 0; l < list.length-1; l++){
+                for(var i = 0; i < list[l].receipeIngredients.length; i++){
+                    if(!list[l].receipeIngredients[i] === inst){
+                        //Nothing
+                    }else if(list[l].receipeIngredients[i] === inst){
+                        $scope.resultsArray.push(list[l]);
+                    }else{
+                    }
+                }
+            }
+        };
+
+        //$scope.findInArray($scope.singleInst);
+        //$scope.findInArray($scope.singleInst2);
+        //$scope.findInArray($scope.singleInst3);
+
+        // Testing: End Block
         $scope.printThis = function(){
             alert($scope.receipeIngredients);
         };
 
         $scope.toggle = function (item, list) {
+
+            $scope.findInArray(item, $scope.returnedReceipe);
+
             var idx = list.indexOf(item);
             var myIdx = $scope.receipeIngredients.indexOf(item);
 
@@ -40,10 +70,9 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
                 list.push(item);
                 //myList.push(item);
             }
-            console.clear();
-            console.log("Internal list: " + list);
-            console.log("Scope list: " + $scope.receipeIngredients);
-
+            //console.clear();
+            //console.log("Internal list: " + list);
+            //console.log("Scope list: " + $scope.receipeIngredients);
         };
 
         $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
@@ -161,7 +190,27 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
         };
 });
 
+//app.filter('ingredientFilter', function(){
+//    return function(rec, selected){
+//        var myArray = [];
+//        for(var i = 0; i < selected.length; i++){
+//            alert("Inside " + i);
+//            if($.inArray(selected[i], rec.receipeIngredients) == -1) {
+//                alert("In the 'if' statement");
+//                return false;
+//            };
+//            myArray.push(selected[i]);
+//        }
+//        return myArray;
+//    };
+//});
 
+//app.filter('ingredientFilter', function(){
+//    return function(rec){
+//        rec.receipeName = "New Name";
+//        return rec;
+//    };
+//});
 
 app.controller('testController', function($scope) {
 
