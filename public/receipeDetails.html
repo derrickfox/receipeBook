@@ -43,20 +43,16 @@
         </div>
     </md-card>
 </div>
-<h1>Selected Receipe: </h1>
-<h1>{{$root.singleReceipe.receipeName}}</h1>
-<h1>{{$root.singleReceipe.receipeDescription}}</h1>
 <form ng-submit="updateReceipe()">
-    <input ng-model="receipeName" value="Something" placeholder="Receipe Name"><br>
-    <input ng-model="receipeDescription" placeholder="Receipe Description"><br>
+    <input ng-model="receipeName" value="Something" placeholder="Rename this receipe"><br>
+    <input ng-model="receipeDescription" placeholder="Give a new description"><br>
     <input ng-model="receipePicture"><br>
+    <h4>List of ingredients:</h4>
     <div ng-repeat="ing in $root.singleReceipe.receipeIngredients">
         <h4>{{ing}}</h4>
     </div>
     <input type="submit" value="Update Receipe">
 </form><br>
 
-<button class="addfields" ng-click="addNewChoice()">Add fields</button>
-
-<button class="btn btn-danger" ng-click="deleteReceipe($root.singleReceipe._id)">Remove</button>
+<button class="btn btn-danger" ng-click="deleteReceipe($root.singleReceipe._id)">Delete This Receipe</button>
 

@@ -1,30 +1,22 @@
 <div class="top">
-    <div layout="row">
-        <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch flex="50">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">Search Receipes...</span>
-                    <span class="md-subhead"><input ng-model="search" placeholder="Filter Receipes"></span>
-                </md-card-title-text>
-                <md-card-title-media>
-                    <div class="md-media-lg card-media"></div>
-                </md-card-title-media>
-            </md-card-title>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button ui-sref="second" class="btn btn-info">Grid View</md-button>
-                <md-button ui-sref="new" class="btn btn-success">New Receipe</md-button>
-            </md-card-actions>
-        </md-card>
+    <div layout="column">
         <md-card class="md-padding" flex="50">
+            <md-card-title-text>
+                <span class="md-headline">Search Receipes...</span><br>
+                <span class="md-subhead"><input ng-model="search" placeholder="Filter Receipes"></span>
+            </md-card-title-text><br>
             <md-card-title-text>
                 <span class="md-headline">Search Ingredients...</span><br>
                 <span class="md-subhead">Filter for specific ingredients:</span><br>
-            </md-card-title-text>
+            </md-card-title-text><br>
             <div ng-repeat="item in ingredients | orderBy">
                 <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
                     {{ item }}
                 </md-checkbox>
             </div>
+            <md-card-actions layout="row" layout-align="left">
+                <md-button ui-sref="second" class="btn btn-success">Grid View</md-button>
+            </md-card-actions>
         </md-card>
     </div>
     <br><br>
