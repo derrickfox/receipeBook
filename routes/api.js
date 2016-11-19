@@ -45,9 +45,7 @@ router.route('/receipes')
     })
     //gets all receipes
     .get(function(req, res){
-        console.log('debug1');
         Receipe.find(function(err, receipes){
-            console.log('debug2');
             if(err){
                 return res.send(500, err);
             }

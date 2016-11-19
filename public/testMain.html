@@ -1,29 +1,39 @@
-<br>
-<div layout="row">
-    <div flex="20">
-        <md-card class="md-padding">
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+            md-component-id="left"
+            ng-click="ul.toggleList()" aria-label="Show User List"
+            md-is-locked-open="$mdMedia('gt-sm')">
+
+    <md-toolbar class="md-whiteframe-z1">
+        <h3>Receipe Box</h3>
+    </md-toolbar>
+
+    <div layout="column">
+        <md-card class="md-padding" flex="50">
             <md-card-title-text>
                 <span class="md-headline">Search Receipes...</span><br>
                 <span class="md-subhead"><input ng-model="search" placeholder="Filter Receipes"></span>
             </md-card-title-text><br>
             <md-card-title-text>
                 <span class="md-headline">Search Ingredients...</span><br>
+                <span class="md-subhead">Filter for specific ingredients:</span><br>
             </md-card-title-text><br>
             <div ng-repeat="item in ingredients | orderBy">
                 <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
                     {{ item }}
                 </md-checkbox>
             </div>
-            <md-card-actions>
+            <md-card-actions layout="row" layout-align="left">
                 <md-button ui-sref="second" class="btn btn-success">Grid View</md-button>
             </md-card-actions>
         </md-card>
     </div>
 
-    <!-- returnedReceipe or resultsArray -->
-    <div ng-repeat="rec in returnedReceipe | filter:search" class="col-md-3">
-        <card></card>
-    </div>
+</md-sidenav>
+
+<div ng-repeat="rec in returnedReceipe | filter:search" class="col-md-3">
+    <!-- <div card></div> -->
+    <card></card>
 </div>
+
 
 

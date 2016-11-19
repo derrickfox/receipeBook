@@ -287,8 +287,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         .state('test1', {
             url: '/test1',
-            templateUrl: 'test1.html',
-            controller: 'testController'
+            templateUrl: 'testMain.html',
+            controller: 'receipeController'
         })
 
         .state('test2', {
