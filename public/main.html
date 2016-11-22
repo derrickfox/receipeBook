@@ -3,7 +3,7 @@
     <div flex="20">
         <md-card class="md-padding">
             <md-card-title-text>
-                <span class="md-headline">Search Receipes...</span><br>
+                <span class="md-headline">Search Receipes...</span><br><br>
                 <span class="md-subhead"><input ng-model="search" placeholder="Filter Receipes"></span>
             </md-card-title-text><br>
             <md-card-title-text>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- returnedReceipe or resultsArray -->
-    <div ng-repeat="rec in returnedReceipe | filter:search" class="col-md-3">
+    <div ng-repeat="rec in returnedReceipe" class="col-md-3">
         <card></card>
     </div>
 </div>

@@ -17,6 +17,7 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
         $scope.instructions = ['step 1', 'step 2'];
         $scope.instruction = '';
         $scope.selected = [];
+        $scope.testArray = ["Carrots", "Grapes"];
 
         // For testing: Begin Block
         $scope.singleInst = "C";
@@ -134,7 +135,7 @@ var app = angular.module('receipeApp', ['ngRoute', 'ngResource', 'ngMaterial', '
 
         $scope.getAllReceipes = function() {
             $scope.returnedReceipe = receipeService.query();
-            //console.log($scope.returnedReceipe);
+            console.log($scope.returnedReceipe);
             // $scope.gridOptions.data = $scope.returnedReceipe;
 
         };
@@ -315,9 +316,65 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.directive('card', function(){
     return {
         templateUrl: 'receipeCard.html'
-    }
+    };
 });
 
+app.filter('testFilter', function(){
+    console.log("Entered Filter Function");
+    return function(input){
+
+        var out = [];
+
+        // Using the angular.forEach method, go through the array of data and perform the operation of figuring out if the language is statically or dynamically typed.
+        angular.forEach(input, function(item) {
+
+            item = item + '-ish';
+            out.push(item);
+
+        });
+
+        return out;
+    };
+})
+
+app.filter('testFilter2', function(){
+    return function(input, checkBoxes){
+        var output = [];
+
+        function foundEveryElement(checked, receipe){
+            var array = [];
+
+            var foundAll = false;
+
+            for(var i = 0; i < checked.length; i++){
+                var found = false;
+                for(var p = 0; p < receipe.ingredients.length; p++){
+                    if(checked[i] === receipe.ingredients[p]){
+                        found = true;
+                        break;
+                    }else{
+                        //nothing
+                    }
+                }
+                array.push(found);
+            };
+
+            foundAll = _.every(array);
+
+            if(checked.length > receipe.ingredients.length){
+                foundAll = false;
+            }
+            return foundAll;
+        }
 
 
+        for(var i = 0; i < input.names.length; i++){
+            if(foundEveryElement(checkBoxes, input.names[i]) === true){
+                output.push(input.names[i]);
+            }
+        }
+
+        return output;
+    };
+});
 
